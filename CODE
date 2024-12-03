@@ -1,0 +1,113 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Define the Patient class
+class Patient {
+    private String id;
+    private String name;
+    private int age;
+    private String ailment;
+
+    public Patient(String id, String name, int age, String ailment) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.ailment = ailment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getAilment() {
+        return ailment;
+    }
+
+    @Override
+ public String toString() {
+        return "Patient [ID=" + id + ", Name=" + name + ", Age=" + age + ", Ailment=" + ailment + "]";
+    }
+}
+
+// Define the Hospital Management System class
+public class HospitalManagementSystem {
+    private ArrayList<Patient> patients;
+
+    public HospitalManagementSystem() {
+        patients = new ArrayList<>();
+    }
+
+    public void addPatient(Patient patient) {
+        patients.add(patient);
+    }
+
+    public Patient searchPatientById(String id) {
+        for (Patient patient : patients) {
+            if (patient.getId().equalsIgnoreCase(id)) {
+                return patient;
+            }
+        }
+        return null;
+  public void listAllPatients() {
+        for (Patient patient : patients) {
+            System.out.println(patient);
+        }
+    }
+
+    public static void main(String[] args) {
+        HospitalManagementSystem hms = new HospitalManagementSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. Add Patient");
+            System.out.println("2. Search Patient by ID");
+            System.out.println("3. List All Patients");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Patient ID: ");
+                    String id = scanner.nextLine();
+                    System.out.print("Enter Patient Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter Patient Age: ");
+                    int age = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character
+                    System.out.print("Enter Patient Ailment: ");
+                    String ailment = scanner.nextLine();
+                    hms.addPatient(new Patient(id, name, age, ailment));
+                    break;
+                case 2:
+                    System.out.print("Enter Patient ID: ");
+                    id = scanner.nextLine();
+   }
+ Patient patient = hms.searchPatientById(id);
+                    if (patient != null) {
+                        System.out.println(patient);
+                    } else {
+                        System.out.println("Patient not found");
+                    }
+                    break;
+                case 3:
+                    hms.listAllPatients();
+                    break;
+                case 4:
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+}
